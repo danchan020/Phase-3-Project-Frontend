@@ -62,7 +62,7 @@ function ReservationCard({id, boardgame, pickup_time, return_time, handleDelete,
                     </Button>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle> Edit your Reservation </DialogTitle>
-                        <form onSubmit = {handleEditSubmit}>
+                        <form onSubmit = {handleEditSubmit} >
                             <LocalizationProvider dateAdapter={AdapterDateFns} localeText={{ start: 'Check-in', end: 'Check-out' }}>
                                 <DateTimePicker
                                     label="Pickup Date"
@@ -77,7 +77,7 @@ function ReservationCard({id, boardgame, pickup_time, return_time, handleDelete,
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
-                            <Button type="submit">
+                            <Button type="submit" onClick={handleClose}>
                                 Submit
                             </Button>
                         </form>

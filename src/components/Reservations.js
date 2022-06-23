@@ -26,7 +26,7 @@ function Reservations({reservations, setReservations}){
 
     return (
         <div>
-            <h1>
+            <h1 style={{textAlign: "center"}}>
                 Reservations
             </h1>
             {renderReservations}

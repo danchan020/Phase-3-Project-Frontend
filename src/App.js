@@ -22,12 +22,16 @@ function App() {
     setReservations([...reservations, formData]);
   }
 
+  const handleCondition = (id) => {
+    return !!reservations.find(reservation => reservation.boardgame.id === id)
+  }
+
   return (
     <div>
       <ResponsiveAppBar/>
       <Routes>
             <Route path="/" element = {<Home/>}/>
-            <Route path="/boardgames" element = {<GameLibrary handleAddReservation = {handleAddReservation}/>}/>
+            <Route path="/boardgames" element = {<GameLibrary handleAddReservation = {handleAddReservation} handleCondition={handleCondition}/>}/>
             <Route path="/reservations" element = {
               <Reservations 
                 reservations={reservations} 
