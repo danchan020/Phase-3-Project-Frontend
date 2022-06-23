@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GameCard from './GameCard'
+import {TextField} from '@mui/material'
 
 function GameLibrary() {
     
@@ -13,17 +14,26 @@ function GameLibrary() {
         .then( data => setGames(data))
     }, [])
 
-    // const searchGames = 
+    const searchedGames = games.filter(game => game.title.toLowerCase().includes(search.toLowerCase()))
 
 
-    const renderGames = games.map(game => {
+    const renderGames = searchedGames.map(game => {
         return <GameCard key = {game.id} {...game}/>
     })
     
 
     return (
         <div>
-            <input placeholder = 'Search' onChange={handleChange}></input>
+            <h1>All Games</h1>
+            <TextField 
+                id="filled-basic" 
+                label="Search" 
+                variant="filled" 
+                size="small" 
+                color="secondary" 
+                onChange={handleChange}
+                focused
+            />
             {renderGames}
         </div>
     )

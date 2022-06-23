@@ -1,10 +1,26 @@
-import React from 'react'
-import GameCard from './GameCard'
+import React, {useState, useEffect} from 'react'
+import ReservationCard from './ReservationCard'
 
 function Reservations(){
+
+    const [reservations, setReservations] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:9292/reservations")
+        .then( r => r.json() )
+        .then( data => setReservations(data))
+    }, [])
+
+    const renderReservations = reservations.map(reservation => {
+        <ReservationCard key = {reservation.id} {...reservation} />
+    })
+
     return (
         <div>
-            "hi"
+            <h1>
+                Reservations
+            </h1>
+            {renderReservations}
         </div>
     )
 }

@@ -3,7 +3,9 @@ import React from 'react'
 function Donate(){
     return (
         <div>
-            "oh"
+            <h1>
+                Donate
+            </h1>
         </div>
     )
 }
