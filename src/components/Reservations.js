@@ -13,8 +13,15 @@ function Reservations({reservations, setReservations}){
         })
     }
 
+    const handleEdit = (updatedData) => {
+        const { id } = updatedData
+        const filteredReservations = reservations.filter(reservation => reservation.id !== id)
+        setReservations([...filteredReservations, updatedData])
+    }
+
+
     const renderReservations = reservations.map(reservation => {
-        return <ReservationCard key = {reservation.id} {...reservation} handleDelete = {handleDelete}/>
+        return <ReservationCard key = {reservation.id} {...reservation} handleDelete = {handleDelete} handleEdit = {handleEdit}/>
     })
 
     return (
