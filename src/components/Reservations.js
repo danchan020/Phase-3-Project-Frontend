@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import ReservationCard from './ReservationCard'
 
-function Reservations(){
+function Reservations({reservations, setReservations}){
 
-    const [reservations, setReservations] = useState([])
-
-    useEffect(() => {
-        fetch("http://localhost:9292/reservations")
-        .then( r => r.json() )
-        .then( data => setReservations(data))
-    }, [])
+    const handleDelete = (id) => {
+        fetch(`http://localhost:9292/reservations/${id}`, {
+            method: 'DELETE'
+        })  .then(r => r.json())
+            .then(() => {
+            const deleteReservation = reservations.filter(reservation => reservation.id !== id)
+            setReservations(deleteReservation)
+        })
+    }
 
     const renderReservations = reservations.map(reservation => {
-        <ReservationCard key = {reservation.id} {...reservation} />
+        return <ReservationCard key = {reservation.id} {...reservation} handleDelete = {handleDelete}/>
     })
 
     return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import GameCard from './GameCard'
 import {TextField} from '@mui/material'
 
-function GameLibrary() {
+function GameLibrary({handleAddReservation}) {
     
     const [games, setGames] = useState([])
     const [search, setSearch] = useState("")
@@ -18,7 +18,7 @@ function GameLibrary() {
 
 
     const renderGames = searchedGames.map(game => {
-        return <GameCard key = {game.id} {...game}/>
+        return <GameCard key = {game.id} {...game} handleAddReservation = {handleAddReservation}/>
     })
     
 

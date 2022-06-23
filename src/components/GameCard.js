@@ -7,7 +7,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-function GameCard({ id, image, title, category, rating, supply, description }) {
+function GameCard({ id, image, title, category, rating, supply, description, handleAddReservation }) {
 
     const [pickupDate, setPickupDate] = useState(new Date())
     const [returnDate, setReturnDate] = useState(new Date())
@@ -19,12 +19,31 @@ function GameCard({ id, image, title, category, rating, supply, description }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const newReservation = {
+            user_id: null,
+            boardgame_id: id,
+            pickup_time: pickupDate,
+            return_time: returnDate
+        }
+        fetch('http://localhost:9292/reservations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(newReservation)
+        })
+            .then(r => r.json())
+            .then(data => {
+                handleAddReservation(data)
+            })
+    }
+
     return (
         <Grid container >
             <Grid item xs={12} sm={6} md={4}/>
             <Card elevation={5} style={{ backgroundColor: "#1a77ba" }}>
                 <CardMedia>
-                    <img src={image} />
+                    <img src={image} width="575" height="475" />
                 </CardMedia>
                 <CardContent>
                     <Typography>
@@ -32,7 +51,11 @@ function GameCard({ id, image, title, category, rating, supply, description }) {
                     </Typography>
                     <Typography>
                         Category : {category}
+                    </Typography>
+                    <Typography>
                         Rating : {rating}
+                    </Typography>
+                    <Typography>
                         Stock : {supply}
                     </Typography>
                 </CardContent>
@@ -42,11 +65,8 @@ function GameCard({ id, image, title, category, rating, supply, description }) {
                     </Button>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle> Reserve {title}! </DialogTitle>
-                        <DialogContent>
-                            <LocalizationProvider
-                                dateAdapter={AdapterDateFns}
-                                localeText={{ start: 'Check-in', end: 'Check-out' }}
-                            >
+                        <form onSubmit = {handleSubmit}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns} localeText={{ start: 'Check-in', end: 'Check-out' }}>
                                 <DateTimePicker
                                     label="Pickup Date"
                                     value={pickupDate}
@@ -60,10 +80,10 @@ function GameCard({ id, image, title, category, rating, supply, description }) {
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
-                            <Button>
+                            <Button type="submit">
                                 Submit
                             </Button>
-                        </DialogContent>
+                        </form>
                     </Dialog>
                 </CardActions>
             </Card>
