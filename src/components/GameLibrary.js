@@ -2,26 +2,24 @@ import React, { useEffect, useState } from 'react';
 import GameCard from './GameCard'
 import {TextField, Box} from '@mui/material'
 
-function GameLibrary({handleAddReservation, handleCondition}) {
+function GameLibrary({games, handleAddReservation, handleUpdateStock, handleCondition}) {
     
-    const [games, setGames] = useState([])
     const [search, setSearch] = useState("")
     const handleChange = (e) => setSearch(e.target.value)
 
-    useEffect(() => {
-        fetch("http://localhost:9292/boardgames")
-        .then( r => r.json() )
-        .then( data => setGames(data))
-    }, [])
-
-    const handleUpdateStock = (updatedBoardgame) => {
-        const {id} = updatedBoardgame
-        const updatedGames = games.filter(game => game.id !== id)
-        setGames([...updatedGames, updatedBoardgame ])
-     }
-
+    // const [games, setGames] = useState([])
     
+    // useEffect(() => {
+    //     fetch("http://localhost:9292/boardgames")
+    //     .then( r => r.json() )
+    //     .then( data => setGames(data))
+    // }, [])
 
+    // const handleUpdateStock = (updatedBoardgame) => {
+    //     const {id} = updatedBoardgame
+    //     const updatedGames = games.filter(game => game.id !== id)
+    //     setGames([...updatedGames, updatedBoardgame ])
+    //  }
 
     const searchedGames = games.filter(game => game.title.toLowerCase().includes(search.toLowerCase()))
 

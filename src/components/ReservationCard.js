@@ -41,7 +41,7 @@ function ReservationCard({id, boardgame, pickup_time, return_time, handleDelete,
     return (
         <Grid container >
             <Grid item xs={12} sm={6} md={4}/>
-            <Card style = {{backgroundColor: "#1a77ba"}}>
+            <Card elevation={15} style = {{backgroundColor: "#1a77ba"}}>
                 <CardMedia>
                     <img src = {boardgame.image} width="575" height="475"/>
                 </CardMedia>

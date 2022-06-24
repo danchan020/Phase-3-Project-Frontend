@@ -10,7 +10,14 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
 
+  const [games, setGames] = useState([])
   const [reservations, setReservations] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/boardgames")
+    .then( r => r.json() )
+    .then( data => setGames(data))
+}, [])
 
   useEffect(() => {
       fetch("http://localhost:9292/reservations")
@@ -22,23 +29,44 @@ function App() {
     setReservations([...reservations, formData]);
   }
 
+  const handleNewGame = (event) => {
+    return !!(games.find(game => game.title.toLowerCase() === event.target.title.value.toLowerCase()));
+  }
+  
+
+
+  // const handleAddBoardgame = (formData) => {
+  //   setGames([...games, formData]);
+
   const handleCondition = (id) => {
     return !!reservations.find(reservation => reservation.boardgame.id === id)
   }
+
+  const handleUpdateStock = (updatedBoardgame) => {
+    const {id} = updatedBoardgame
+    const updatedGames = games.filter(game => game.id !== id)
+    setGames([...updatedGames, updatedBoardgame ])
+ }
 
   return (
     <div>
       <ResponsiveAppBar/>
       <Routes>
             <Route path="/" element = {<Home/>}/>
-            <Route path="/boardgames" element = {<GameLibrary handleAddReservation = {handleAddReservation} handleCondition={handleCondition}/>}/>
+            <Route path="/boardgames" element = {
+              <GameLibrary 
+                games = {games} 
+                handleUpdateStock = {handleUpdateStock} 
+                handleAddReservation = {handleAddReservation} 
+                handleCondition={handleCondition}/>}
+              />
             <Route path="/reservations" element = {
               <Reservations 
                 reservations={reservations} 
                 setReservations = {setReservations} 
                 />}
               />
-            <Route path="/donate" element = {<Donate/>}/>         
+            <Route path="/donate" element = {<Donate game = {games} handleNewGame={handleNewGame}/>}/>         
       </Routes>
       
     </div>

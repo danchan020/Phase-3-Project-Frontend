@@ -22,7 +22,7 @@ function Home() {
             </p>
 
             <Grid container justify="center" alight="center" direction="column" style={{minHeight: "100vh"}}>
-                <Grid item>
+                <Grid item container direction="column" alignItems="center" justify="center">
                     <ToggleButtonGroup 
                         color="primary" 
                         style={{marginBottom: "1em"}}
@@ -35,9 +35,9 @@ function Home() {
                     </ToggleButtonGroup>
                 </Grid>
                 <Grid item container direction="column" alignItems="center" justify="center">
-                    <TextField variant="filled" label="Email" fullWidth style={{marginBottom: "1em"}}/>
-                    <TextField variant="filled" label="Username" fullWidth style={{marginBottom: "1em"}}/>
-                    <TextField variant="filled" label="Password" fullWidth style={{marginBottom: "1em"}}/>
+                    <TextField variant="filled" label="Email" style={{marginBottom: "1em"}}/>
+                    <TextField variant="filled" label="Username" style={{marginBottom: "1em"}}/>
+                    <TextField variant="filled" label="Password" style={{marginBottom: "1em"}}/>
                     <Button size="large" variant="contained" color="primary"> Sign Up </Button>
                 </Grid>
             </Grid>

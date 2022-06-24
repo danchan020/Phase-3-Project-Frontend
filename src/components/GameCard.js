@@ -60,9 +60,7 @@ function GameCard({ id, image, title, category, rating, supply, description, han
                 body: JSON.stringify({supply: --stock})
             })
                 .then(r => r.json())
-                .then(data => {
-                    handleUpdateStock(data)
-                })
+                .then(data => {handleUpdateStock(data)})
          }
 
         fetch('http://localhost:9292/reservations', {
@@ -81,7 +79,7 @@ function GameCard({ id, image, title, category, rating, supply, description, han
     return (
         <Grid container >
             <Grid item xs={12} sm={6} md={4} />
-            <Card elevation={5} style={{ backgroundColor: "#1a77ba" }}>
+            <Card elevation={15} style={{ backgroundColor: "#1a77ba" }}>
                 <CardMedia>
                     <img src={image} width="575" height="475" />
                 </CardMedia>
