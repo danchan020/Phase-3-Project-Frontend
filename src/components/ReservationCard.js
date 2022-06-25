@@ -28,6 +28,7 @@ function ReservationCard({id, boardgame, pickup_time, return_time, handleDelete,
             pickup_time: pickupDate,
             return_time: returnDate
         }
+        console.log(reservationChange)
         fetch(`http://localhost:9292/reservations/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json'},

@@ -54,7 +54,7 @@ function GameCard({ id, image, title, category, rating, supply, description, han
         }
 
         const updateStock = (stock) => { 
-            fetch(`http://localhost:9292//boardgames/${id}`, {
+            fetch(`http://localhost:9292/boardgames/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({supply: --stock})

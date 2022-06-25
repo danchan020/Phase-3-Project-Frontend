@@ -29,14 +29,19 @@ function App() {
     setReservations([...reservations, formData]);
   }
 
-  const handleNewGame = (event) => {
-    return !!(games.find(game => game.title.toLowerCase() === event.target.title.value.toLowerCase()));
-  }
-  
-
+  // const handleNewGame = (event) => {
+  //   return (games.find(game => game.title.toLowerCase() === event.target.title.value.toLowerCase()));
+  // }
 
   // const handleAddBoardgame = (formData) => {
   //   setGames([...games, formData]);
+  // }
+
+  const handleFormStockUpdate = (formData) => {
+    const {id} = formData
+    const updatedGamesForm = games.filter(game => game.id !== id)
+    setGames([...updatedGamesForm, formData ])
+ }
 
   const handleCondition = (id) => {
     return !!reservations.find(reservation => reservation.boardgame.id === id)
@@ -66,7 +71,7 @@ function App() {
                 setReservations = {setReservations} 
                 />}
               />
-            <Route path="/donate" element = {<Donate game = {games} handleNewGame={handleNewGame}/>}/>         
+            <Route path="/donate" element = {<Donate handleFormStockUpdate={handleFormStockUpdate}/>}/>         
       </Routes>
       
     </div>
